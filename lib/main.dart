@@ -12,8 +12,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bonjour',
       theme: appTheme,
-      home: Container(
-        child: Text('bonjour'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Posts app'),
+        ),
+        body: Center(
+          child: Container(
+            child: Text('bonjour'),
+          ),
+        ),
       ),
     );
   }
