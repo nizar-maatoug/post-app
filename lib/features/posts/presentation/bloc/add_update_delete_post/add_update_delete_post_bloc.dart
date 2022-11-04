@@ -45,7 +45,18 @@ class AddUpdateDeletePostBloc
           emit(
               MessageAddUpdateDeletePostState(message: UPDATE_SUCCESS_MESSAGE));
         });
-      } else if (event is DeletePostEvent) {}
+      } else if (event is DeletePostEvent) {
+        emit(LoadingAddUpdateDeletePostState());
+
+        final failureOrDoneMessage = await deletePost(event.postId);
+        failureOrDoneMessage.fold((failure) {
+          emit(ErrorAddUpdateDeletePostState(
+              message: _mapFailureToMessage(failure)));
+        }, (_) {
+          emit(
+              MessageAddUpdateDeletePostState(message: UPDATE_SUCCESS_MESSAGE));
+        });
+      }
     });
   }
 
