@@ -7,8 +7,6 @@ abstract class PostsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class getAllPostsEvent extends PostsEvent{}
+class GetAllPostsEvent extends PostsEvent {}
 
-class RefreshPostsEvent extends PostsEvent{}
-
-
+class RefreshPostsEvent extends PostsEvent {}

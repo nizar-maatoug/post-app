@@ -7,8 +7,6 @@ part 'posts_state.dart';
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   PostsBloc() : super(PostsInitial()) {
-    on<PostsEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<PostsEvent>((event, emit) {});
   }
 }
