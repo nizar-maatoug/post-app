@@ -13,7 +13,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
   PostsBloc({required this.getAllPosts}) : super(PostsInitial()) {
     on<PostsEvent>((event, emit) async {
-      if (event is GetAllPostsEvent) {
+      if (event is GetAllPostsEvent || event is RefreshPostsEvent) {
         emit(LoadingPostsState());
 
         final futurePosts =
@@ -24,7 +24,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
         }, (posts) {
           emit(LoadedPostsState(posts: posts));
         });
-      } else if (event is RefreshPostsEvent) {}
+      }
     });
   }
 
