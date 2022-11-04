@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:posts_app/core/strings/messages.dart';
 import 'package:posts_app/features/posts/domain/entities/post.dart';
@@ -28,36 +29,31 @@ class AddUpdateDeletePostBloc
         emit(LoadingAddUpdateDeletePostState());
 
         final failureOrDoneMessage = await addPost(event.post);
-        failureOrDoneMessage.fold((failure) {
-          emit(ErrorAddUpdateDeletePostState(
-              message: _mapFailureToMessage(failure)));
-        }, (_) {
-          emit(MessageAddUpdateDeletePostState(message: ADD_SUCCESS_MESSAGE));
-        });
+        _eitherDoneMessageOrErrorState(
+            failureOrDoneMessage, ADD_SUCCESS_MESSAGE);
       } else if (event is UpdatePostEvent) {
         emit(LoadingAddUpdateDeletePostState());
 
         final failureOrDoneMessage = await updatePost(event.post);
-        failureOrDoneMessage.fold((failure) {
-          emit(ErrorAddUpdateDeletePostState(
-              message: _mapFailureToMessage(failure)));
-        }, (_) {
-          emit(
-              MessageAddUpdateDeletePostState(message: UPDATE_SUCCESS_MESSAGE));
-        });
+        _eitherDoneMessageOrErrorState(
+            failureOrDoneMessage, UPDATE_SUCCESS_MESSAGE);
       } else if (event is DeletePostEvent) {
         emit(LoadingAddUpdateDeletePostState());
 
         final failureOrDoneMessage = await deletePost(event.postId);
-        failureOrDoneMessage.fold((failure) {
-          emit(ErrorAddUpdateDeletePostState(
-              message: _mapFailureToMessage(failure)));
-        }, (_) {
-          emit(
-              MessageAddUpdateDeletePostState(message: UPDATE_SUCCESS_MESSAGE));
-        });
+        _eitherDoneMessageOrErrorState(
+            failureOrDoneMessage, DELETE_SUCCESS_MESSAGE);
       }
     });
+  }
+  AddUpdateDeletePostState _eitherDoneMessageOrErrorState(
+      Either<Failure, Unit> either, String message) {
+    return either.fold(
+      (failure) => ErrorAddUpdateDeletePostState(
+        message: _mapFailureToMessage(failure),
+      ),
+      (_) => MessageAddUpdateDeletePostState(message: message),
+    );
   }
 
   String _mapFailureToMessage(Failure failure) {
