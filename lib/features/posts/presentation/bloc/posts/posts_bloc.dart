@@ -21,7 +21,9 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
         futurePosts.fold((failure) {
           emit(ErrorPostsState(message: _mapFailureToMessage(failure)));
-        }, (posts) {});
+        }, (posts) {
+          emit(LoadedPostsState(posts: posts));
+        });
       } else if (event is RefreshPostsEvent) {}
     });
   }
