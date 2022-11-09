@@ -19,7 +19,8 @@ class TextFormFieldWidget extends StatelessWidget {
           minLines: multiLines ? 6 : 1,
           maxLines: multiLines ? 6 : 1,
           controller: controller,
-          validator: (val) => val!.isEmpty ? "$name Can't be empty" : null,
+          validator: (val) =>
+              val!.isEmpty ? "$name ne peut pas etre vide" : null,
           decoration: InputDecoration(hintText: name),
         ));
   }

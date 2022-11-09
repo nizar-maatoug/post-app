@@ -28,3 +28,4 @@ class MessageAddUpdateDeletePostState extends AddUpdateDeletePostState {
   @override
   List<Object> get props => [message];
 }
+

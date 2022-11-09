@@ -12,6 +12,7 @@ import '../models/post_model.dart';
 typedef Future<Unit> DeleteOrUpdateOrAddPost();
 
 class PostsRepositoryImpl implements PostsRepository {
+
   final PostRemoteDataSource remoteDataSource;
   final PostLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
@@ -30,7 +31,7 @@ class PostsRepositoryImpl implements PostsRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
-    } else {
+    } else {//pas de connexion internet
       try {
         final localPosts = await localDataSource.getCachedPosts();
         return Right(localPosts);

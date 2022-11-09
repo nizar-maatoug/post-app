@@ -29,20 +29,20 @@ class AddUpdateDeletePostBloc
         emit(LoadingAddUpdateDeletePostState());
 
         final failureOrDoneMessage = await addPost(event.post);
-        _eitherDoneMessageOrErrorState(
-            failureOrDoneMessage, ADD_SUCCESS_MESSAGE);
+        emit(_eitherDoneMessageOrErrorState(
+            failureOrDoneMessage, ADD_SUCCESS_MESSAGE));
       } else if (event is UpdatePostEvent) {
         emit(LoadingAddUpdateDeletePostState());
 
         final failureOrDoneMessage = await updatePost(event.post);
-        _eitherDoneMessageOrErrorState(
-            failureOrDoneMessage, UPDATE_SUCCESS_MESSAGE);
+        emit(_eitherDoneMessageOrErrorState(
+            failureOrDoneMessage, UPDATE_SUCCESS_MESSAGE));
       } else if (event is DeletePostEvent) {
         emit(LoadingAddUpdateDeletePostState());
 
         final failureOrDoneMessage = await deletePost(event.postId);
-        _eitherDoneMessageOrErrorState(
-            failureOrDoneMessage, DELETE_SUCCESS_MESSAGE);
+        emit(_eitherDoneMessageOrErrorState(
+            failureOrDoneMessage, DELETE_SUCCESS_MESSAGE));
       }
     });
   }

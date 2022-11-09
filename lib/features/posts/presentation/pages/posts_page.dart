@@ -49,11 +49,11 @@ class PostPage extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => PostAddUpdatePage(
+                builder: (_) => const PostAddUpdatePage(
                       isUpdatePost: false,
                     )));
       },
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
     );
   }
 }
